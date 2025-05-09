@@ -12,7 +12,15 @@ function App() {
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongGuesses, setWrongGuesses] = useState<number>(0);
 
-  // event delegation - when the user clicks on a letter, check if it is in the word and if it is, add it to the guessed letters
+  const incorrectGuesses = guessedLetters.filter(
+    (letter) => !currWord.includes(letter)
+  );
+
+  const win = currWord
+    .split('')
+    .every((letter) => guessedLetters.includes(letter));
+
+  const lose = incorrectGuesses.length >= 6;
 
   function addGuessedLetter(letter: string) {
     setGuessedLetters((prev) => {
@@ -22,11 +30,13 @@ function App() {
       }
 
       console.log('clicked letter ', letter);
+
       setMsg('');
       return [...prev, letter];
     });
   }
 
+  // event delegation - when the user clicks on a letter, check if it is in the word and if it is, add it to the guessed letters
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -47,7 +57,7 @@ function App() {
 
   return (
     <div className='container'>
-      <h1>Win | Lose</h1>
+      <h1>{win ? 'You won!' : lose ? 'You lost!' : ''}</h1>
       <h1>Hangman</h1>
       <h1>{currWord}</h1>
       <h1>
