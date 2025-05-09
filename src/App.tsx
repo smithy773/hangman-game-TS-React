@@ -8,10 +8,24 @@ function App() {
     return words[Math.floor(Math.random() * words.length)];
   });
 
+  const [msg, setMsg] = useState('');
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongGuesses, setWrongGuesses] = useState<number>(0);
 
   // event delegation - when the user clicks on a letter, check if it is in the word and if it is, add it to the guessed letters
+
+  function addGuessedLetter(letter: string) {
+    setGuessedLetters((prev) => {
+      if (prev.includes(letter)) {
+        setMsg('You already guessed that letter!');
+        return prev;
+      }
+
+      console.log('clicked letter ', letter);
+      setMsg('');
+      return [...prev, letter];
+    });
+  }
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -21,10 +35,7 @@ function App() {
       if (!letter.match(/^[a-z]$/)) return;
 
       e.preventDefault();
-      console.log('clicked letter ', letter);
-      setGuessedLetters((prev) => {
-        return [...prev, letter];
-      });
+      addGuessedLetter(letter);
     };
 
     document.addEventListener('click', handleClick);
@@ -32,7 +43,7 @@ function App() {
     return () => {
       document.removeEventListener('click', handleClick);
     };
-  }, [currWord]);
+  }, []);
 
   return (
     <div className='container'>
@@ -43,6 +54,7 @@ function App() {
         {guessedLetters.length === 0 ? 'Waiting for input...' : guessedLetters}
       </h1>
       <Keyboard />
+      <p>{msg}</p>
     </div>
   );
 }
