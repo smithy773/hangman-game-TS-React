@@ -48,18 +48,37 @@ function App() {
       addGuessedLetter(letter);
     };
 
+    const handleKeypress = (e: KeyboardEvent) => {
+      const letter = e.key.toLowerCase();
+
+      if (!letter.match(/^[a-z]$/)) return;
+
+      e.preventDefault();
+      addGuessedLetter(letter);
+    };
+
+    document.addEventListener('keypress', handleKeypress);
     document.addEventListener('click', handleClick);
 
     return () => {
       document.removeEventListener('click', handleClick);
+      document.removeEventListener('keypress', handleKeypress);
     };
   }, []);
 
   return (
     <div className='container'>
-      <h1>{win ? 'You won!' : lose ? 'You lost!' : ''}</h1>
-      <h1>Hangman</h1>
+      <h1>
+        {win
+          ? 'You won!'
+          : lose
+          ? `You lost! The word was ${currWord}.`
+          : 'Hangman'}
+      </h1>
+      {/* HERE should be the hangman graphic */}
+      {/* below it should be empty ___ for each letter of currWord, so basically it will depend on the length */}
       <h1>{currWord}</h1>
+      {/* will probably remove the line below */}
       <h1>
         {guessedLetters.length === 0 ? 'Waiting for input...' : guessedLetters}
       </h1>
