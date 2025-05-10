@@ -1,0 +1,103 @@
+.show-head {
+  border: 4px solid black;
+}
+
+.show-limbs {
+  border-top: 4px solid black;
+}
+
+.show-body {
+  border-left: 4px solid black;
+}
+
+/* GALLOWS */
+
+.hangman-graphic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hangman-graphic .gallows-l {
+  border-right: 8px solid black;
+  width: 1rem;
+  height: 400px;
+  position: relative;
+}
+
+.hangman-graphic .gallows-r {
+  border-top: 8px solid black;
+  width: 225px;
+  height: 400px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hangman-graphic .rope {
+  border: 2px solid black;
+  height: 36px;
+  position: relative;
+}
+
+/* HANGMAN */
+
+.hangman-graphic .head {
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+}
+
+.hangman-graphic .body {
+  width: 1px;
+  height: 125px;
+  position: relative;
+}
+
+.hangman-graphic .middle {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+}
+
+.hangman-graphic .left-arm,
+.hangman-graphic .right-arm {
+  width: 65px;
+  position: relative;
+}
+
+.hangman-graphic .left-arm {
+  transform-origin: right bottom;
+  rotate: -30deg;
+  left: 65px;
+}
+
+.hangman-graphic .right-arm {
+  transform-origin: left bottom;
+  rotate: 30deg;
+  right: 65px;
+}
+
+.hangman-graphic .legs {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+}
+
+.hangman-graphic .left-leg,
+.hangman-graphic .right-leg {
+  width: 65px;
+  position: relative;
+  bottom: 4px;
+}
+
+.hangman-graphic .left-leg {
+  transform-origin: right bottom;
+  rotate: -45deg;
+}
+
+.hangman-graphic .right-leg {
+  transform-origin: left bottom;
+  rotate: 45deg;
+}
