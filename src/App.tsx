@@ -12,7 +12,7 @@ function App() {
   const [msg, setMsg] = useState('');
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
-  const incorrectGuesses = guessedLetters.filter(
+  const incorrectGuesses: string[] = guessedLetters.filter(
     (letter) => !currWord.includes(letter)
   );
 
@@ -70,16 +70,25 @@ function App() {
     <div className='container'>
       <h1>Hangman</h1>
       <HangmanGraphic incorrectGuesses={incorrectGuesses} />
-      {/* below it should be empty ___ for each letter of currWord, so basically it will depend on the length */}
-      <h1>{currWord}</h1>
-      {/* will probably remove the line below */}
+
       <h1>
-        {guessedLetters.length === 0 ? 'Waiting for input...' : guessedLetters}
+        {currWord.split('').map((letter) => {
+          if (guessedLetters.includes(letter)) {
+            return `${letter} `;
+          } else {
+            return '_ ';
+          }
+        })}
       </h1>
+      {/* test line below */}
+      {/* <h1>
+        {guessedLetters.length === 0 ? 'Waiting for input...' : guessedLetters}
+      </h1> */}
       {win ? (
-        'You won!'
+        'You won!\nPress "F5" to play again.'
       ) : lose ? (
-        `You lost! The word was ${currWord}.`
+        `You lost! The word was ${currWord}.
+        Press "F5" to play again.`
       ) : (
         <Keyboard />
       )}

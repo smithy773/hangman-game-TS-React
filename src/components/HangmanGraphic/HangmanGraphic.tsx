@@ -7,28 +7,37 @@ interface HangmanGraphicProps {
 
 export function HangmanGraphic(props: HangmanGraphicProps) {
   useEffect(() => {
+    let bodyPart: string = '';
+    let show: string = '';
     switch (props.incorrectGuesses.length) {
       case 0:
-        break;
+        return;
       case 1:
-        document.querySelector('.head')?.classList.add('show-head');
+        bodyPart = '.head';
+        show = 'show-head';
         break;
       case 2:
-        document.querySelector('.body')?.classList.add('show-body');
+        bodyPart = '.body';
+        show = 'show-body';
         break;
       case 3:
-        document.querySelector('.left-arm')?.classList.add('show-limbs');
+        bodyPart = '.left-arm';
+        show = 'show-limbs';
         break;
       case 4:
-        document.querySelector('.right-arm')?.classList.add('show-limbs');
+        bodyPart = '.right-arm';
+        show = 'show-limbs';
         break;
       case 5:
-        document.querySelector('.left-leg')?.classList.add('show-limbs');
+        bodyPart = '.left-leg';
+        show = 'show-limbs';
         break;
       case 6:
-        document.querySelector('.right-leg')?.classList.add('show-limbs');
+        bodyPart = '.right-leg';
+        show = 'show-limbs';
         break;
     }
+    document.querySelector(bodyPart)?.classList.add(show);
   }, [props.incorrectGuesses]);
 
   return (
