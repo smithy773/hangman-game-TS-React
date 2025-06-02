@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import words from '../store/words.json';
 import { Keyboard } from './components/Keyboard/Keyboard';
 import './App.css';
