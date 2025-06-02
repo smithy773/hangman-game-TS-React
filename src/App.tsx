@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import words from "../store/words.json";
-import { Keyboard } from "./components/Keyboard/Keyboard";
-import "./App.css";
-import { HangmanGraphic } from "./components/HangmanGraphic/HangmanGraphic";
+import { useEffect, useState } from 'react';
+import words from '../store/words.json';
+import { Keyboard } from './components/Keyboard/Keyboard';
+import './App.css';
+import { HangmanGraphic } from './components/HangmanGraphic/HangmanGraphic';
 
 // TODO: disable event listeners if game has finished, host on website
 
 function App() {
-  const [currWord, setCurrWord] = useState(() => {
+  const [currWord] = useState(() => {
     return words[Math.floor(Math.random() * words.length)];
   });
 
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState('');
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
   const incorrectGuesses: string[] = guessedLetters.filter(
@@ -19,66 +19,36 @@ function App() {
   );
 
   const win = currWord
-    .split("")
+    .split('')
     .every((letter) => guessedLetters.includes(letter));
 
   const lose = incorrectGuesses.length >= 6;
 
+  console.log(win, lose);
+
   function addGuessedLetter(letter: string) {
     setGuessedLetters((prev) => {
       if (prev.includes(letter)) {
-        setMsg("You already guessed that letter!");
+        setMsg('You already guessed that letter!');
         return prev;
       }
 
-      console.log("clicked letter ", letter);
-
-      setMsg("");
+      setMsg('');
       return [...prev, letter];
     });
   }
 
-  // event delegation - when the user clicks on a letter, check if it is in the word and if it is, add it to the guessed letters
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const letter = target.innerText.toLowerCase();
-
-      if (!letter.match(/^[a-z]$/)) return;
-
-      e.preventDefault();
-      addGuessedLetter(letter);
-    };
-
-    const handleKeypress = (e: KeyboardEvent) => {
-      const letter = e.key.toLowerCase();
-
-      if (!letter.match(/^[a-z]$/)) return;
-
-      e.preventDefault();
-      addGuessedLetter(letter);
-    };
-
-    document.addEventListener("keypress", handleKeypress);
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-      document.removeEventListener("keypress", handleKeypress);
-    };
-  }, []);
-
   return (
-    <div className="container">
-      <h1 className="title">Hangman</h1>
+    <div className='container'>
+      <h1 className='title'>Hangman</h1>
       <HangmanGraphic incorrectGuesses={incorrectGuesses} />
 
-      <h1 className="letters-to-guess">
-        {currWord.split("").map((letter) => {
+      <h1 className='letters-to-guess'>
+        {currWord.split('').map((letter) => {
           if (guessedLetters.includes(letter)) {
             return `${letter} `;
           } else {
-            return "_ ";
+            return '_ ';
           }
         })}
       </h1>
@@ -88,16 +58,16 @@ function App() {
       </h1> */}
 
       {win ? (
-        <p className="status">
+        <p className='status'>
           {'You won! Press "F5" (reload page) to play again.'}
         </p>
       ) : lose ? (
-        <p className="status">
+        <p className='status'>
           {`You lost! The word was ${currWord}.
         Press "F5" (reload page) to play again.`}
         </p>
       ) : (
-        <Keyboard />
+        <Keyboard addGuessedLetter={addGuessedLetter} />
       )}
       <p>{msg}</p>
     </div>
