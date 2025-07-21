@@ -45,5 +45,5 @@ Full code available inside `HangmanGraphic.tsx`.
 
 ## Author
 
-- LinkedIn - [Viktor Kolev](https://www.frontendmentor.io/profile/smithy773)
-- Email - [viktorkolev0707@gmail.com]
+- LinkedIn - [Viktor Kolev](https://www.linkedin.com/in/viktork7/)
+- Email - [viktorkolev0707@gmail.com]()
